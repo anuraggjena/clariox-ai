@@ -135,28 +135,30 @@ Deployed Backend: [https://clariox.onrender.com](https://clariox.onrender.com)
 
 ## 📂 Project Structure (Monorepo)
 
+```
 clariox/
 │
-├── frontend/
+├── frontend/                  # React + Vite Frontend
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   ├── store/
-│   │   ├── services/
-│   │   └── types/
+│   │   ├── components/        # Reusable UI components
+│   │   ├── pages/             # Route-level pages
+│   │   ├── hooks/             # Custom React hooks
+│   │   ├── store/             # Zustand state management
+│   │   ├── services/          # Axios API client
+│   │   └── types/             # TypeScript types
 │   │
-│   └── vite.config.ts
+│   └── vite.config.ts         # Vite configuration
 │
-└── backend/
+└── backend/                   # FastAPI Backend
     ├── app/
-    │   ├── routes/
-    │   ├── core/
-    │   ├── models.py
-    │   ├── schemas.py
-    │   └── main.py
+    │   ├── routes/            # Auth & Post endpoints
+    │   ├── core/              # Security & dependencies
+    │   ├── models.py          # SQLAlchemy models
+    │   ├── schemas.py         # Pydantic schemas
+    │   └── main.py            # FastAPI entry point
     │
-    └── requirements.txt
+    └── requirements.txt       # Python dependencies
+```
 
 ----------
 
@@ -165,15 +167,21 @@ clariox/
 ### Backend
 
 `cd backend`
+
 `python -m venv venv`
+
 `venv\Scripts\activate`
+
 `pip install -r requirements.txt`
+
 `uvicorn app.main:app --reload` 
 
 ### Frontend
 
 `cd frontend`
+
 `npm install`
+
 `npm run dev` 
 
 
