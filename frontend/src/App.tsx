@@ -1,9 +1,28 @@
-export default function App() {
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuthStore } from "./store/useAuthStore";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import EditorPage from "./pages/EditorPage";
+
+function App() {
+  const token = useAuthStore((state) => state.token);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600">
-        Clariox AI
-      </h1>
-    </div>
-  )
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      {token ? (
+        <>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/editor/:id" element={<EditorPage />} />
+        </>
+      ) : (
+        <Route path="*" element={<Navigate to="/login" />} />
+      )}
+    </Routes>
+  );
 }
+
+export default App;
