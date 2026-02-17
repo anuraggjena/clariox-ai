@@ -10,6 +10,7 @@ interface AutoSaveProps {
 export function useAutoSave({ postId, title, content }: AutoSaveProps) {
   const timeoutRef = useRef<number | null>(null);
   const isSavingRef = useRef(false);
+  const hasLoadedRef = useRef(false);
 
   const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
 
@@ -28,10 +29,10 @@ export function useAutoSave({ postId, title, content }: AutoSaveProps) {
 
       setStatus("saved");
 
-      // after 1.5s revert to idle
+      // after 2s revert to idle
       setTimeout(() => {
         setStatus("idle");
-      }, 1500);
+      }, 2000);
     } catch (err) {
       console.error("Auto-save failed:", err);
     } finally {
@@ -42,13 +43,19 @@ export function useAutoSave({ postId, title, content }: AutoSaveProps) {
   useEffect(() => {
     if (!postId) return;
 
+    // Skip first load
+    if (!hasLoadedRef.current) {
+      hasLoadedRef.current = true;
+      return;
+    }
+
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
 
     timeoutRef.current = window.setTimeout(() => {
       save();
-    }, 1000); // 1s debounce
+    }, 2000);
 
     return () => {
       if (timeoutRef.current) {

@@ -41,7 +41,7 @@ export default function EditorPage() {
       }
     };
     fetchPost();
-  }, [postId, setContent]);
+  }, [postId]);
 
   const { manualSave } = useAutoSave({ postId, title, content });
 
